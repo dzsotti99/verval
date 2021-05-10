@@ -35,63 +35,70 @@ class ServiceTestHomework {
 
     @Test
     void addHomework1() {
-        serviceBefore.saveHomework("100", "Foarte greu", 20, 10);
+        serviceBefore.saveHomework("100", "Foarte greu", 9, 7);
 
-        serviceBefore.saveStudent("100", "Zsolt", 532);
-        Iterable<Student> studs = serviceBefore.findAllStudents();
-        Student helper = new Student("101", "Not Zsolt", 533);
-        for (Student stud : studs) {
-            if(stud.getID().equals("100")) {
-                helper = stud;
+        Iterable<Homework> homes = serviceBefore.findAllHomework();
+        Homework helper = new Homework("101", "Foarte usor", 9, 8);
+        for (Homework home : homes) {
+            if(home.getID().equals("100")) {
+                helper = home;
             }
         }
+
         assertEquals(helper.getID(), "100");
-        assertEquals(helper.getGroup(), 532);
-        assertEquals(helper.getName(), "Zsolt");
-        serviceBefore.deleteStudent("100");
+        assertEquals(helper.getDescription(), "Foarte greu");
+        assertEquals(helper.getDeadline(), 9);
+        assertEquals(helper.getStartline(), 7);
+        serviceBefore.deleteHomework("100");
     }
 
     @Test
     void addHomework2() {
-        serviceBefore.saveStudent("100", "Zsolt", 532);
-        Iterable<Student> studs = serviceBefore.findAllStudents();
-        Student helper = new Student("101", "Not Zsolt", 533);
-        for (Student stud : studs) {
-            if(stud.getID().equals("100")) {
-                helper = stud;
+        serviceBefore.saveHomework("100", "Foarte greu", 9, 7);
+
+        Iterable<Homework> homes = serviceBefore.findAllHomework();
+        Homework helper = new Homework("101", "Foarte usor", 9, 8);
+        for (Homework home : homes) {
+            if(home.getID().equals("100")) {
+                helper = home;
             }
         }
+
         assertEquals(helper.getID(), "100");
-        assertEquals(helper.getGroup(), 532);
-        assertEquals(helper.getName(), "Zsolt");
-        serviceBefore.deleteStudent("100");
-        studs = serviceBefore.findAllStudents();
-        helper = new Student("101", "Not Zsolt", 533);
-        for (Student stud : studs) {
-            if(stud.getID().equals("100")) {
-                helper = stud;
+        assertEquals(helper.getDescription(), "Foarte greu");
+        assertEquals(helper.getDeadline(), 9);
+        assertEquals(helper.getStartline(), 7);
+        serviceBefore.deleteHomework("100");
+
+        homes = serviceBefore.findAllHomework();
+        helper = new Homework("101", "Foarte usor", 9, 8);
+        for (Homework home : homes) {
+            if(home.getID().equals("100")) {
+                helper = home;
             }
         }
+
         assertEquals(helper.getID(), "101");
-        assertEquals(helper.getGroup(), 533);
-        assertEquals(helper.getName(), "Not Zsolt");
+        assertEquals(helper.getDescription(), "Foarte usor");
+        assertEquals(helper.getDeadline(), 9);
+        assertEquals(helper.getStartline(), 8);
     }
 
     @Test
     void addHomework3() {
-        Iterable<Student> studs = serviceBefore.findAllStudents();
+        Iterable<Homework> homes = serviceBefore.findAllHomework();
         int counter1 = 0;
-        for (Student stud : studs) {
+        for (Homework home: homes) {
             counter1++;
         }
-        serviceBefore.saveStudent("102", "Zsolt", 532);
-        serviceBefore.saveStudent("102", "Zsolt", 532);
-        studs = serviceBefore.findAllStudents();
+        serviceBefore.saveHomework("102", "Foarte greu", 9, 7);
+        serviceBefore.saveHomework("102", "Foarte greu", 9, 7);
+        homes = serviceBefore.findAllHomework();
         int counter2 = 0;
-        for (Student stud : studs) {
+        for (Homework home: homes) {
             counter2++;
         }
         assertEquals(counter2, counter1 + 1);
-        serviceBefore.deleteStudent("102");
+        serviceBefore.deleteHomework("102");
     }
 }
